@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. helpers.sh
+. /helpers.sh
 
 check_inputs $1 $2
 set_env $1 $2 $3
