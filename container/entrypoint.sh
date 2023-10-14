@@ -9,6 +9,4 @@ echo $CHAT_ID
 echo $SLACK_TOKEN
 echo $MSG_TITLE
 echo $JOB_URL
-echo $COMMIT_URL
-echo $COMMIT_SHA
-echo $SHORT_COMMIT_SHA
+echo $USER_AVATAR
