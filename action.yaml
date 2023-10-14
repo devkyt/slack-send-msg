@@ -5,7 +5,14 @@ inputs:
     description: 'Id of a chat where to send message'
     required: true
     type: string
-    default: 'World'
+  token:
+    description: "Oauth token with a permission to write to chat"
+    required: true
+    type: string
+  title:
+    description: "Title for the message"
+    required: true
+    type: string
 runs:
   using: 'docker'
   image: './container/Dockerfile'
