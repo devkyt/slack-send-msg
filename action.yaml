@@ -1,0 +1,13 @@
+name: 'Slack Message Delivery'
+description: 'Send message to Slack Chat'
+inputs:
+  chat_id:  # id of input
+    description: 'Id of a chat where to send message'
+    required: true
+    type: string
+    default: 'World'
+runs:
+  using: 'docker'
+  image: './container/Dockerfile'
+  args:
+    - ${{ inputs.chat_id }}
