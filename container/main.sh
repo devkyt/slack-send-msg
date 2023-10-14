@@ -19,10 +19,8 @@ set_env() {
   export SLACK_TOKEN="$2"
   export MSG_TITLE=$(get_msg_title $3)
   export JOB_STATUS=$(get_job_status $4)
-  export COMMIT_SHA=$(get_full_commit_sha $5)
-  export SHORT_COMMIT_SHA=$(get_full_commit_sha $5)
   export JOB_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
-  export COMMIT_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/commits/${COMMIT_SHA}"
+  export COMMIT_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/commits/${GITHUB_SHA}"
   export USER_AVATAR="https://avatars.githubusercontent.com/u/${GITHUB_ACTOR_ID}"
 }
 
@@ -47,11 +45,4 @@ get_job_status() {
       fi
 }
 
-get_full_commit_sha() {
-  git log -n 1 $1 --pretty=format:"%H"
-}
-
-get_short_commit_sha() {
-  git log -n 1 $1 --pretty=format:"%h"
-}
 
