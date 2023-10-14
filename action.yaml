@@ -18,3 +18,5 @@ runs:
   image: './container/Dockerfile'
   args:
     - ${{ inputs.chat_id }}
+    - ${{ inputs.token }}
+    - ${{ inputs.title }}
