@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 echo "$1"
 echo "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
