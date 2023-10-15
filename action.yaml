@@ -26,6 +26,6 @@ runs:
   image: './container/Dockerfile'
   args:
     - ${{ inputs.chat_id }}
-    - ${{ inputs.token }}
+    - ${{ inputs.slack_token }}
     - ${{ inputs.message_title }}
     - ${{ inputs.job_status }}
