@@ -10,6 +10,7 @@ public class Utils {
         envVars.put("token", System.getenv("SLACK_TOKEN"));
         envVars.put("title", System.getenv("MSG_TITLE"));
         envVars.put("branch", System.getenv("BRANCH"));
+        envVars.put("branchUrl", System.getenv("BRANCH_URL"));
         envVars.put("commitId", System.getenv("COMMIT_SHA"));
         envVars.put("commitUrl", System.getenv("COMMIT_URL"));
         envVars.put("commitMsg", "Testing new notification system");

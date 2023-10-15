@@ -20,4 +20,5 @@ public class Constants {
         public final static String AUTHOR = "s8ckerpunch";
         public final static String BOT_AVATAR = "";
     }
+
 }

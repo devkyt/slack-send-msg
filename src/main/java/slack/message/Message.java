@@ -18,85 +18,69 @@ public class Message {
     private final Delivery deliveryService;
 
     private final String channel;
-    private String title;
-    private final String customMsg;
-    private final String branch;
-    private final String commitId;
-    private final String commitUrl;
-    private final String commitMsg;
-    private final String jobStatus;
+    private final String title;
+    private final String info;
+    private final String color;
     private final String jobUrl;
     private final String username;
     private final String userAvatar;
-    private final String deployEnv;
 
-    private String color;
-    private String payload;
-
-    private JSONObject header;
-    private JSONObject body;
-    private JSONObject footer;
-
+    private JSONObject[] components;
     private JSONObject content;
 
     public Message(HashMap<String, String> envVars) {
         this.deliveryService = new Delivery(envVars.get("token"));
-
         this.channel = envVars.get("channel");
-        this.title = envVars.get("title");
-        this.customMsg = envVars.get("customMsg");
-        this.branch = envVars.get("branch");
-        this.commitId = envVars.get("commitId");
-        this.commitUrl = envVars.get("commitUrl");
-        this.commitMsg = envVars.get("commitMsg");
-        this.jobStatus = envVars.get("jobStatus");
+        this.title = setTitle(envVars.get("title"), envVars.get("deployEnv"));
+        this.info = setInfo(envVars);
+        this.color = setColor(envVars.get("jobStatus"));
         this.jobUrl = envVars.get("jobUrl");
         this.username = envVars.get("username");
         this.userAvatar = envVars.get("userAvatar");
-        this.deployEnv = envVars.get("deployEnv");
 
-        setColor();
-        setTitle();
-        setPayload();
-        buildComponents();
+        initComponents();
         setContent();
 
     }
+    private String setTitle(String title, String deployEnv) {
+        if (!deployEnv.isEmpty()) {
+            return title + " -> " + deployEnv;
+        }
+        return title;
+    }
 
-    private void setColor() {
+    private String setInfo(HashMap<String, String> envVars) {
+        if (!envVars.get("customMsg").isEmpty()) {
+            return envVars.get("customMsg");
+        } else {
+            return String.format("*Branch*: <%s|%s>\n *Commit*: <%s|%s>\n*Message*: %s\n",
+                    envVars.get("branchUrl"),
+                    envVars.get("branch"),
+                    envVars.get("commitUrl"),
+                    envVars.get("commitId"),
+                    envVars.get("commitMsg"));
+        }
+    }
+
+    private String setColor(String jobStatus) {
         switch (jobStatus) {
             case "failure":
-                color = RED;
-                break;
+                return RED;
             case "cancelled":
-                color = YELLOW;
-                break;
+                return YELLOW;
             case "success":
-            case "default":
-                color = GREEN;
-                break;
-        }
-    }
-    private void buildComponents() {
-        header = Header.build(title);
-        body = Body.build(payload, username, userAvatar);
-        footer = Footer.build(jobUrl);
-    }
-
-    private void setPayload() {
-        if (!customMsg.isEmpty()) {
-            payload = customMsg;
-        } else {
-            payload = String.format("*Branch*: %s\n *Commit*: <%s|%s>\n*Message*: %s\n",
-                    branch, commitUrl, commitId, commitMsg);
+            default:
+                return GREEN;
         }
     }
 
-    private void setTitle() {
-        if (!deployEnv.isEmpty()) {
-            title = title + " -> " + deployEnv;
-        }
-
+    private void initComponents() {
+        JSONObject header = Header.build(title);
+        JSONObject divider = Common.createDivider();
+        JSONObject body = Body.build(info, username, userAvatar);
+        JSONObject footer = Footer.build(jobUrl);
+        JSONObject context = Common.createContext();
+        components = new JSONObject[]{header, divider, body, footer, context};
     }
 
     private void setContent() {
@@ -115,11 +99,9 @@ public class Message {
     private JSONArray wrapInBlocks() {
         JSONArray blocksSection = new JSONArray();
 
-        blocksSection.put(header);
-        blocksSection.put(Common.createDivider());
-        blocksSection.put(body);
-        blocksSection.put(footer);
-        blocksSection.put(Common.createContext());
+        for (JSONObject component: components) {
+            blocksSection.put(component);
+        }
 
         return blocksSection;
     }

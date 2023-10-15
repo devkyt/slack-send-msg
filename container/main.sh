@@ -22,6 +22,7 @@ set_env() {
   export JOB_STATUS=$(get_job_status "$5")
   export JOB_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
   export BRANCH="${GITHUB_REF##*/}"
+  export BRANCH_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/tree/${BRANCH}"
   export COMMIT_SHA=$(get_short_commit_id)
   export COMMIT_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/commits/${GITHUB_SHA}"
   export USERNAME="${GITHUB_ACTOR}"
