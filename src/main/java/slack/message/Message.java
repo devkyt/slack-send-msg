@@ -11,6 +11,8 @@ import slack.message.components.Header;
 import java.io.IOException;
 import java.util.HashMap;
 
+import static slack.utils.Constants.MsgColors.*;
+
 
 public class Message {
     private final Delivery deliveryService;
@@ -33,7 +35,6 @@ public class Message {
 
     private JSONObject content;
 
-
     public Message(HashMap<String, String> envVars) {
         this.deliveryService = new Delivery(envVars.get("token"));
 
@@ -48,10 +49,25 @@ public class Message {
         this.username = envVars.get("username");
         this.userAvatar = envVars.get("userAvatar");
 
+        setColor();
         buildComponents();
         createContent();
     }
 
+    private void setColor() {
+        switch (jobStatus) {
+            case "failure":
+                color = RED;
+                break;
+            case "cancelled":
+                color = YELLOW;
+                break;
+            case "success":
+            case "default":
+                color = GREEN;
+                break;
+        }
+    }
     private void buildComponents() {
         header = Header.build(title);
         body = Body.build(branch, commitUrl, commitId, commitMessage, username, userAvatar);
@@ -85,7 +101,7 @@ public class Message {
         JSONObject inner = new JSONObject();
         JSONArray attachments = new JSONArray();
 
-        inner.put("color", "#f2c744");
+        inner.put("color", color);
         inner.put("blocks", blocks);
 
         attachments.put(inner);

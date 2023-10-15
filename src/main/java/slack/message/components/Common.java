@@ -46,6 +46,11 @@ public final class Common {
         return divider;
     }
 
+    public static JSONObject createContext() {
+        JSONObject context = new JSONObject();
+        return context;
+    }
+
 
 
 }

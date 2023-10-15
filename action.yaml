@@ -13,12 +13,12 @@ inputs:
     description: "Title for the message"
     required: false
     type: string
-  custom_message:
-    description: "Custom message"
-    required: false
-    type: string
   job_status:
     description: "Status of a job"
+    required: false
+    type: string
+  custom_message:
+    description: "Custom message"
     required: false
     type: string
 runs:
@@ -29,3 +29,4 @@ runs:
     - ${{ inputs.slack_token }}
     - ${{ inputs.message_title }}
     - ${{ inputs.job_status }}
+    - ${{ inputs.custom_message }}
