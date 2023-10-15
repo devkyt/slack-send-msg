@@ -1,4 +1,4 @@
-package slack.msg.delivery.message.components;
+package slack.message.components;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -18,23 +18,24 @@ public final class Common {
         return textSection;
     }
 
-    public static JSONObject createImage() {
+    public static JSONObject createImage(String url) {
         JSONObject image = new JSONObject();
 
         image.put("type", "image");
-        image.put("image_url",  "https://pbs.twimg.com/profile_images/625633822235693056/lNGUneLX_400x400.jpg");
+        image.put("image_url", url);
         image.put("alt_text", "author");
 
         return image;
     }
 
-    public static JSONObject createButton(JSONObject text) {
+    public static JSONObject createButton(JSONObject text, String url) {
         JSONObject button = new JSONObject();
 
+        button.put("action_id", "actionId-0");
         button.put("type", "button");
         button.put("text", text);
+        button.put("url", url);
         button.put("value", "click_me_123");
-        button.put("action_id", "actionId-0");
 
         return button;
     }
@@ -44,5 +45,7 @@ public final class Common {
         divider.put("type", "divider");
         return divider;
     }
+
+
 
 }

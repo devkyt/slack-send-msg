@@ -1,52 +1,61 @@
-package slack.msg.delivery.message;
+package slack.message;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import slack.msg.delivery.message.components.Body;
-import slack.msg.delivery.message.components.Footer;
-import slack.msg.delivery.message.components.Header;
-
-import static slack.msg.delivery.message.components.Common.createDivider;
+import slack.message.components.Body;
+import slack.message.components.Common;
+import slack.message.components.Footer;
+import slack.message.components.Header;
 
 
 public class Message {
-    // Ingredients
+    private String channel;
     private String title;
     private String branch;
-    private String commit;
-    private String commit_message;
-    private String author;
+    private String commitId;
+    private String commitUrl;
+    private String commitMessage;
+    private String jobStatus;
+    private String jobUrl;
+    private String userAvatar;
+    private String color;
 
-    // Cooked components
     private JSONObject header;
     private JSONObject body;
     private JSONObject footer;
 
-    // Final Dish
     private String content;
 
-    public Message(String title,
+    public Message(String channel,
+                   String title,
                    String branch,
-                   String commit,
-                   String commit_message,
-                   String author) {
+                   String commitId,
+                   String commitUrl,
+                   String commitMessage,
+                   String jobStatus,
+                   String jobUrl,
+                   String userAvatar) {
+        this.channel = channel;
         this.title = title;
         this.branch = branch;
-        this.commit = commit;
-        this.commit_message = commit_message;
-        this.author = author;
+        this.commitId = commitId;
+        this.commitUrl = commitUrl;
+        this.commitMessage = commitMessage;
+        this.jobStatus = jobStatus;
+        this.jobUrl = jobUrl;
+        this.userAvatar = userAvatar;
 
-        cookComponents();
-        cookContent();
+        buildComponents();
+        buildContent();
     }
 
-    private void cookComponents() {
-        header = Header.cook(title);
-        body = Body.cook(branch, commit, author);
-        footer = Footer.cook();
+    private void buildComponents() {
+        header = Header.build(title);
+        body = Body.build(branch, commitUrl, commitId, commitMessage, userAvatar);
+        footer = Footer.build(jobUrl);
     }
 
-    private void cookContent() {
+    private void buildContent() {
         JSONObject rawContent = prepareContent();
         content = rawContent.toString();
     }
@@ -54,21 +63,20 @@ public class Message {
     private JSONObject prepareContent() {
         JSONObject rawContent = new JSONObject();
 
-        JSONArray blocks = prepareBlocks();
+        JSONArray blocks = createBlocks();
         JSONArray attachments = wrapInAttachment(blocks);
 
         rawContent.put("attachments", attachments);
-        rawContent.put("channel", "C93UJBBJQ");
-        rawContent.put("username", "GitHub");
+        rawContent.put("channel", channel);
 
         return rawContent;
     }
 
-    private JSONArray prepareBlocks() {
+    private JSONArray createBlocks() {
         JSONArray blocksSection = new JSONArray();
 
         blocksSection.put(header);
-        blocksSection.put(createDivider());
+        blocksSection.put(Common.createDivider());
         blocksSection.put(body);
         blocksSection.put(footer);
 

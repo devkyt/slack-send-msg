@@ -20,6 +20,7 @@ set_env() {
   export MSG_TITLE=$(get_msg_title $3)
   export JOB_STATUS=$(get_job_status $4)
   export JOB_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+  export COMMIT_SHA=$(${GITHUB_SHA} | head -c 7)
   export COMMIT_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/commits/${GITHUB_SHA}"
   export USER_AVATAR="https://avatars.githubusercontent.com/u/${GITHUB_ACTOR_ID}"
 }

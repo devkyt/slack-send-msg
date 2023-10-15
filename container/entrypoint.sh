@@ -8,5 +8,10 @@ set_env $1 $2 $3 $4
 echo $CHAT_ID
 echo $SLACK_TOKEN
 echo $MSG_TITLE
+echo $JOB_STATUS
 echo $JOB_URL
 echo $USER_AVATAR
+echo $COMMIT_SHA
+echo $COMMIT_URL
+
+java -jar /app.jar

@@ -1,34 +1,38 @@
-package slack.msg.delivery;
+package slack;
 
-import slack.msg.delivery.message.Message;
+import slack.message.Message;
+import static slack.utils.Utils.loadEnvVars;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-
-
-//xoxb-305242419056-6031903258789-s7keiEPJefSZuj5Wf9Mw9MXt
-//C93UJBBJQ
+import java.util.HashMap;
 
 public class App {
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        Message msg = new Message("title",
-                "branch",
-                "124sd",
-                "testBot",
-                "author");
 
-        System.out.println(System.getenv("PATH"));
+        HashMap<String,String> envVars = loadEnvVars();
+
+        Message msg = new Message(envVars.get("channel"),
+                envVars.get("title"),
+                envVars.get("branch"),
+                envVars.get("commitId"),
+                envVars.get("commitUrl"),
+                envVars.get("commitMsg"),
+                envVars.get("jobStatus"),
+                envVars.get("jobUrl"),
+                envVars.get("userAvatar"));
+
 
         HttpClient client = HttpClient.newHttpClient();
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://slack.com/api/chat.postMessage"))
                 .header("Content-type", "application/json")
-                .header("Authorization", "Bearer xoxb-305242419056-6031903258789-s7keiEPJefSZuj5Wf9Mw9MXt")
+                .header("Authorization", "Bearer xoxb-305242419056-6031903258789-VOZrDtuRTdDjmE5qdkzkAqtz")
                 .POST(HttpRequest.BodyPublishers.ofString(msg.getContent()))
                 .build();
 

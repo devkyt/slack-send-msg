@@ -1,18 +1,18 @@
-package slack.msg.delivery.message.components;
+package slack.message.components;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import static slack.msg.delivery.message.components.Common.createText;
-import static slack.msg.delivery.message.components.Common.createButton;
+import static slack.message.components.Common.createText;
+import static slack.message.components.Common.createButton;
 
 public final class Footer {
 
-    public static JSONObject cook() {
+    public static JSONObject build(String url) {
         JSONObject footer = new JSONObject();
         JSONArray elements = new JSONArray();
 
         JSONObject text = createText("plain_text", "Open Workflow", false);
-        JSONObject button = createButton(text);
+        JSONObject button = createButton(text, url);
 
         elements.put(button);
 

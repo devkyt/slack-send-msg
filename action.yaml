@@ -1,17 +1,25 @@
 name: 'Slack Message Delivery'
 description: 'Send message to Slack Chat'
 inputs:
-  chat_id:  # id of input
+  chat_id:
     description: 'Id of a chat where to send message'
     required: true
     type: string
-  token:
+  slack_token:
     description: "Oauth token with a permission to write to chat"
     required: true
     type: string
-  title:
+  message_title:
     description: "Title for the message"
-    required: true
+    required: false
+    type: string
+  custom_message:
+    description: "Custom message"
+    required: false
+    type: string
+  job_status:
+    description: "Status of a job"
+    required: false
     type: string
 runs:
   using: 'docker'
@@ -19,4 +27,5 @@ runs:
   args:
     - ${{ inputs.chat_id }}
     - ${{ inputs.token }}
-    - ${{ inputs.title }}
+    - ${{ inputs.message_title }}
+    - ${{ inputs.job_status }}

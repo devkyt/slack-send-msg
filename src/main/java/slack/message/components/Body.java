@@ -1,17 +1,19 @@
-package slack.msg.delivery.message.components;
+package slack.message.components;
 
 import org.json.JSONObject;
 
-import static slack.msg.delivery.message.components.Common.createText;
-import static slack.msg.delivery.message.components.Common.createImage;
-
 public final class Body {
 
-    public static JSONObject cook(String branch, String commit, String author) {
-        String msg = "*Branch*: master\n *Commit*: 323dsd\n*Author*: testBot\n";
+    public static JSONObject build(String branch,
+                                   String commitUrl,
+                                   String commitId,
+                                   String commitMessage,
+                                   String userAvatar) {
+        String msg = String.format("*Branch*: %s\n *Commit*: <%s|%s>\n*Message*: %s\n",
+                branch, commitUrl, commitId, commitMessage);
 
-        JSONObject image = createImage();
-        JSONObject text = createText("mrkdwn", msg, false);
+        JSONObject image = Common.createImage(userAvatar);
+        JSONObject text = Common.createText("mrkdwn", msg, false);
         JSONObject body = new JSONObject();
 
         body.put("type", "section");
