@@ -1,7 +1,4 @@
-target/archive-tmp
-target/classes
-target/generated-sources
-target/maven-status
+target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/

@@ -15,6 +15,7 @@ public class Utils {
         envVars.put("commitMsg", "Testing new notification system");
         envVars.put("jobStatus", System.getenv("JOB_STATUS"));
         envVars.put("jobUrl", System.getenv("JOB_URL"));
+        envVars.put("username", System.getenv("USERNAME"));
         envVars.put("userAvatar", System.getenv("USER_AVATAR"));
 
         return envVars;

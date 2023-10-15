@@ -15,7 +15,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>slack.App</mainClass>
+                            <mainClass>slack.MainClass</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

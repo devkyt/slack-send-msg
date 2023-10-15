@@ -18,12 +18,12 @@ public final class Common {
         return textSection;
     }
 
-    public static JSONObject createImage(String url) {
+    public static JSONObject createImage(String url, String alt_text) {
         JSONObject image = new JSONObject();
 
         image.put("type", "image");
         image.put("image_url", url);
-        image.put("alt_text", "author");
+        image.put("alt_text", alt_text);
 
         return image;
     }

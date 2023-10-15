@@ -2,77 +2,75 @@ package slack.message;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import slack.delivery.Delivery;
 import slack.message.components.Body;
 import slack.message.components.Common;
 import slack.message.components.Footer;
 import slack.message.components.Header;
 
+import java.io.IOException;
+import java.util.HashMap;
+
 
 public class Message {
-    private String channel;
-    private String title;
-    private String branch;
-    private String commitId;
-    private String commitUrl;
-    private String commitMessage;
-    private String jobStatus;
-    private String jobUrl;
-    private String userAvatar;
+    private final Delivery deliveryService;
+
+    private final String channel;
+    private final String title;
+    private final String branch;
+    private final String commitId;
+    private final String commitUrl;
+    private final String commitMessage;
+    private final String jobStatus;
+    private final String jobUrl;
+    private final String username;
+    private final String userAvatar;
     private String color;
 
     private JSONObject header;
     private JSONObject body;
     private JSONObject footer;
 
-    private String content;
+    private JSONObject content;
 
-    public Message(String channel,
-                   String title,
-                   String branch,
-                   String commitId,
-                   String commitUrl,
-                   String commitMessage,
-                   String jobStatus,
-                   String jobUrl,
-                   String userAvatar) {
-        this.channel = channel;
-        this.title = title;
-        this.branch = branch;
-        this.commitId = commitId;
-        this.commitUrl = commitUrl;
-        this.commitMessage = commitMessage;
-        this.jobStatus = jobStatus;
-        this.jobUrl = jobUrl;
-        this.userAvatar = userAvatar;
+
+    public Message(HashMap<String, String> envVars) {
+        this.deliveryService = new Delivery(envVars.get("token"));
+
+        this.channel = envVars.get("channel");
+        this.title = envVars.get("title");
+        this.branch = envVars.get("branch");
+        this.commitId = envVars.get("commitId");
+        this.commitUrl = envVars.get("commitUrl");
+        this.commitMessage = envVars.get("commitMsg");
+        this.jobStatus = envVars.get("jobStatus");
+        this.jobUrl = envVars.get("jobUrl");
+        this.username = envVars.get("username");
+        this.userAvatar = envVars.get("userAvatar");
 
         buildComponents();
-        buildContent();
+        createContent();
     }
 
     private void buildComponents() {
         header = Header.build(title);
-        body = Body.build(branch, commitUrl, commitId, commitMessage, userAvatar);
+        body = Body.build(branch, commitUrl, commitId, commitMessage, username, userAvatar);
         footer = Footer.build(jobUrl);
     }
 
-    private void buildContent() {
-        JSONObject rawContent = prepareContent();
-        content = rawContent.toString();
-    }
-
-    private JSONObject prepareContent() {
+    private void createContent() {
         JSONObject rawContent = new JSONObject();
 
-        JSONArray blocks = createBlocks();
+        JSONArray blocks = wrapInBlocks();
         JSONArray attachments = wrapInAttachment(blocks);
 
         rawContent.put("attachments", attachments);
         rawContent.put("channel", channel);
 
-        return rawContent;
+        this.content = rawContent;
     }
 
-    private JSONArray createBlocks() {
+    private JSONArray wrapInBlocks() {
         JSONArray blocksSection = new JSONArray();
 
         blocksSection.put(header);
@@ -95,8 +93,9 @@ public class Message {
         return attachments;
     }
 
-    public String getContent() {
-        return content;
+    public void send() throws IOException, InterruptedException {
+        deliveryService.setRequest(content.toString());
+        deliveryService.send();
     }
 
 }

@@ -13,4 +13,8 @@ echo $USER_AVATAR
 echo $COMMIT_SHA
 echo $COMMIT_URL
 
+COMMIT_MSG=$(cat "$GITHUB_EVENT_PATH" | jq -r '.commits[-1].message')
+echo "$COMMIT_MSG"
+cat "$GITHUB_EVENT_PATH"
+
 java -jar /app.jar

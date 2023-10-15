@@ -8,11 +8,12 @@ public final class Body {
                                    String commitUrl,
                                    String commitId,
                                    String commitMessage,
+                                   String username,
                                    String userAvatar) {
         String msg = String.format("*Branch*: %s\n *Commit*: <%s|%s>\n*Message*: %s\n",
                 branch, commitUrl, commitId, commitMessage);
 
-        JSONObject image = Common.createImage(userAvatar);
+        JSONObject image = Common.createImage(userAvatar, username);
         JSONObject text = Common.createText("mrkdwn", msg, false);
         JSONObject body = new JSONObject();
 
