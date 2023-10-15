@@ -2,6 +2,8 @@ package slack.message.components;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import static slack.utils.Constants.TextTypes.*;
+import static slack.utils.Constants.DefaultValues.AUTHOR;
 
 public final class Common {
 
@@ -48,9 +50,15 @@ public final class Common {
 
     public static JSONObject createContext() {
         JSONObject context = new JSONObject();
+        JSONArray elements = new JSONArray();
+
+        JSONObject text = createText(PLAIN, "Developed by " + AUTHOR, true);
+        elements.put(text);
+
+        context.put("type", "context");
+        context.put("elements", elements);
         return context;
     }
-
 
 
 }

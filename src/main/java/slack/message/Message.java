@@ -18,16 +18,20 @@ public class Message {
     private final Delivery deliveryService;
 
     private final String channel;
-    private final String title;
+    private String title;
+    private final String customMsg;
     private final String branch;
     private final String commitId;
     private final String commitUrl;
-    private final String commitMessage;
+    private final String commitMsg;
     private final String jobStatus;
     private final String jobUrl;
     private final String username;
     private final String userAvatar;
+    private final String deployEnv;
+
     private String color;
+    private String payload;
 
     private JSONObject header;
     private JSONObject body;
@@ -40,18 +44,21 @@ public class Message {
 
         this.channel = envVars.get("channel");
         this.title = envVars.get("title");
+        this.customMsg = envVars.get("customMsg");
         this.branch = envVars.get("branch");
         this.commitId = envVars.get("commitId");
         this.commitUrl = envVars.get("commitUrl");
-        this.commitMessage = envVars.get("commitMsg");
+        this.commitMsg = envVars.get("commitMsg");
         this.jobStatus = envVars.get("jobStatus");
         this.jobUrl = envVars.get("jobUrl");
         this.username = envVars.get("username");
         this.userAvatar = envVars.get("userAvatar");
+        this.deployEnv = envVars.get("deployEnv");
 
         setColor();
+        setTitle();
         buildComponents();
-        createContent();
+        setContent();
     }
 
     private void setColor() {
@@ -70,11 +77,28 @@ public class Message {
     }
     private void buildComponents() {
         header = Header.build(title);
-        body = Body.build(branch, commitUrl, commitId, commitMessage, username, userAvatar);
+        body = Body.build(payload, username, userAvatar);
         footer = Footer.build(jobUrl);
     }
 
-    private void createContent() {
+    private void setPayload() {
+        if (!customMsg.isEmpty()) {
+            payload = customMsg;
+            return;
+        }
+
+        payload = String.format("*Branch*: %s\n *Commit*: <%s|%s>\n*Message*: %s\n",
+                branch, commitUrl, commitId, commitMsg);
+    }
+
+    private void setTitle() {
+        if (!deployEnv.isEmpty()) {
+            title = title + " " + deployEnv;
+        }
+
+    }
+
+    private void setContent() {
         JSONObject rawContent = new JSONObject();
 
         JSONArray blocks = wrapInBlocks();
@@ -82,6 +106,7 @@ public class Message {
 
         rawContent.put("attachments", attachments);
         rawContent.put("channel", channel);
+        rawContent.put("icon_url", "https://avatars.githubusercontent.com/u/96535499");
 
         this.content = rawContent;
     }
@@ -93,6 +118,7 @@ public class Message {
         blocksSection.put(Common.createDivider());
         blocksSection.put(body);
         blocksSection.put(footer);
+        blocksSection.put(Common.createContext());
 
         return blocksSection;
     }

@@ -1,20 +1,17 @@
 package slack.message.components;
 
 import org.json.JSONObject;
+import static slack.utils.Constants.TextTypes.*;
 
 public final class Body {
 
-    public static JSONObject build(String branch,
-                                   String commitUrl,
-                                   String commitId,
-                                   String commitMessage,
+    public static JSONObject build(String payload,
                                    String username,
                                    String userAvatar) {
-        String msg = String.format("*Branch*: %s\n *Commit*: <%s|%s>\n*Message*: %s\n",
-                branch, commitUrl, commitId, commitMessage);
+
 
         JSONObject image = Common.createImage(userAvatar, username);
-        JSONObject text = Common.createText("mrkdwn", msg, false);
+        JSONObject text = Common.createText(MD, payload, false);
         JSONObject body = new JSONObject();
 
         body.put("type", "section");

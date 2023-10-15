@@ -15,4 +15,9 @@ public class Constants {
         public final static String PLAIN = "plain_text";
         public final static String MD = "mrkdwn";
     }
+
+    public static class DefaultValues {
+        public final static String AUTHOR = "s8ckerpunch";
+        public final static String BOT_AVATAR = "";
+    }
 }
