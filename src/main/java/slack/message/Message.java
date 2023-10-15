@@ -59,6 +59,9 @@ public class Message {
         setTitle();
         buildComponents();
         setContent();
+
+        System.out.println(payload);
+        System.out.println(title);
     }
 
     private void setColor() {
@@ -84,16 +87,15 @@ public class Message {
     private void setPayload() {
         if (!customMsg.isEmpty()) {
             payload = customMsg;
-            return;
+        } else {
+            payload = String.format("*Branch*: %s\n *Commit*: <%s|%s>\n*Message*: %s\n",
+                    branch, commitUrl, commitId, commitMsg);
         }
-
-        payload = String.format("*Branch*: %s\n *Commit*: <%s|%s>\n*Message*: %s\n",
-                branch, commitUrl, commitId, commitMsg);
     }
 
     private void setTitle() {
         if (!deployEnv.isEmpty()) {
-            title = title + " " + deployEnv;
+            title = title + " -> " + deployEnv;
         }
 
     }
