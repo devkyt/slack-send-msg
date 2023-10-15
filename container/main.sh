@@ -48,7 +48,7 @@ get_job_status() {
 }
 
 get_short_commit_id() {
-  echo "${GITHUB_SHA}" | head -c6
+  echo "${GITHUB_SHA}" | head -c7
 }
 
 
