@@ -57,11 +57,10 @@ public class Message {
 
         setColor();
         setTitle();
+        setPayload();
         buildComponents();
         setContent();
 
-        System.out.println(payload);
-        System.out.println(title);
     }
 
     private void setColor() {
