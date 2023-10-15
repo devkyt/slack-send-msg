@@ -32,7 +32,7 @@ public class App {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://slack.com/api/chat.postMessage"))
                 .header("Content-type", "application/json")
-                .header("Authorization", "Bearer xoxb-305242419056-6031903258789-VOZrDtuRTdDjmE5qdkzkAqtz")
+                .header("Authorization", "Bearer " + envVars.get("token"))
                 .POST(HttpRequest.BodyPublishers.ofString(msg.getContent()))
                 .build();
 
