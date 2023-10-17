@@ -27,7 +27,7 @@ public class Constants {
         MSG_TITLE,
         BRANCH,
         BRANCH_URL,
-        COMMIT_SHA,
+        COMMIT_ID,
         COMMIT_URL,
         CUSTOM_MSG,
         JOB_STATUS,

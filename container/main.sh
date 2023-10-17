@@ -27,7 +27,7 @@ set_env() {
     export JOB_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
     export BRANCH="${GITHUB_REF##*/}"
     export BRANCH_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/tree/${BRANCH}"
-    export COMMIT_SHA=$(get_short_commit_id)
+    export COMMIT_ID=$(get_short_commit_id)
     export COMMIT_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/commits/${GITHUB_SHA}"
     export USERNAME="${GITHUB_ACTOR}"
     export USER_AVATAR="https://avatars.githubusercontent.com/u/${GITHUB_ACTOR_ID}"
