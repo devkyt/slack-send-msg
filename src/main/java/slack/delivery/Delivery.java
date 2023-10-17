@@ -6,8 +6,6 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-import static slack.utils.Constants.SlackApi.CHAT_ENDPOINT;
-
 public class Delivery {
     private final String token;
     private final HttpClient client;
@@ -18,9 +16,9 @@ public class Delivery {
         this.client = HttpClient.newHttpClient();
     }
 
-    public void setRequest(String message) {
+    public void setRequest(String message, String url) {
         request = HttpRequest.newBuilder()
-                .uri(URI.create(CHAT_ENDPOINT))
+                .uri(URI.create(url))
                 .header("Content-type", "application/json")
                 .header("Authorization", "Bearer " + token)
                 .POST(HttpRequest.BodyPublishers.ofString(message))

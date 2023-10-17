@@ -16,9 +16,26 @@ public class Constants {
         public final static String MD = "mrkdwn";
     }
 
-    public static class DefaultValues {
+    public static class AuthorInfo {
         public final static String AUTHOR = "s8ckerpunch";
-        public final static String BOT_AVATAR = "";
+        public final static String SOURCE_REPO_URL = "";
+    }
+
+    public enum EnvVars {
+        CHAT_ID,
+        SLACK_TOKEN,
+        MSG_TITLE,
+        BRANCH,
+        BRANCH_URL,
+        COMMIT_SHA,
+        COMMIT_URL,
+        CUSTOM_MSG,
+        JOB_STATUS,
+        JOB_URL,
+        USERNAME,
+        USER_AVATAR,
+        APP_NAME,
+        APP_AVATAR,
     }
 
 }

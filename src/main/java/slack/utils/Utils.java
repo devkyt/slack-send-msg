@@ -1,26 +1,31 @@
 package slack.utils;
 
 import java.util.HashMap;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import slack.utils.Constants.EnvVars;
 
 public class Utils {
-    public static HashMap<String, String> loadEnvVars() {
-        HashMap<String, String> envVars = new HashMap<>();
+    public static HashMap<String, String> loadFromEnv(EnvVars[] envVars) {
+        HashMap<String, String> msgData = new HashMap<>();
 
-        envVars.put("channel", System.getenv("CHAT_ID"));
-        envVars.put("token", System.getenv("SLACK_TOKEN"));
-        envVars.put("title", System.getenv("MSG_TITLE"));
-        envVars.put("branch", System.getenv("BRANCH"));
-        envVars.put("branchUrl", System.getenv("BRANCH_URL"));
-        envVars.put("commitId", System.getenv("COMMIT_SHA"));
-        envVars.put("commitUrl", System.getenv("COMMIT_URL"));
-        envVars.put("commitMsg", "Testing new notification system");
-        envVars.put("customMsg", System.getenv("CUSTOM_MSG"));
-        envVars.put("jobStatus", System.getenv("JOB_STATUS"));
-        envVars.put("jobUrl", System.getenv("JOB_URL"));
-        envVars.put("username", System.getenv("USERNAME"));
-        envVars.put("userAvatar", System.getenv("USER_AVATAR"));
-        envVars.put("deployEnv", System.getenv("DEPLOY_ENV"));
+        for (EnvVars var: envVars) {
+            String name = var.name();
+            msgData.put(toCamelCase(name), System.getenv(name));
+        }
 
-        return envVars;
+        return msgData;
     }
+
+    public static String toCamelCase(String snakePhrase) {
+        String[] phraseParts = snakePhrase.toLowerCase().split("_");
+        String camelPhrase = phraseParts[0];
+
+        for (int i = 1; i < phraseParts.length; i++) {
+            camelPhrase += phraseParts[i].substring(0, 1).toUpperCase() + phraseParts[i].substring(1);
+        }
+
+        return camelPhrase;
+    }
+
 }

@@ -3,7 +3,7 @@ package slack.message.components;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import static slack.utils.Constants.TextTypes.*;
-import static slack.utils.Constants.DefaultValues.AUTHOR;
+import static slack.utils.Constants.AuthorInfo.AUTHOR;
 
 public final class Common {
 

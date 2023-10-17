@@ -3,7 +3,7 @@
 . /main.sh
 
 check_inputs "$1" "$2"
-set_env "$1" "$2" "$3" "$4" "$5" "$6"
+set_env "$1" "$2" "$3" "$4" "$5" "$6" "$7" "$8"
 
 #echo $CHAT_ID
 #echo $MSG_TITLE

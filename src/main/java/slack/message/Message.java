@@ -1,6 +1,5 @@
 package slack.message;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 import slack.delivery.Delivery;
 import slack.message.components.Body;
@@ -12,6 +11,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import static slack.utils.Constants.MsgColors.*;
+import static slack.utils.Constants.SlackApi.CHAT_ENDPOINT;
 
 
 public class Message {
@@ -24,41 +24,38 @@ public class Message {
     private final String jobUrl;
     private final String username;
     private final String userAvatar;
+    private final String appName;
+    private final String appAvatar;
 
-    private JSONObject[] components;
     private JSONObject content;
 
-    public Message(HashMap<String, String> envVars) {
-        this.deliveryService = new Delivery(envVars.get("token"));
-        this.channel = envVars.get("channel");
-        this.title = setTitle(envVars.get("title"), envVars.get("deployEnv"));
-        this.info = setInfo(envVars);
-        this.color = setColor(envVars.get("jobStatus"));
-        this.jobUrl = envVars.get("jobUrl");
-        this.username = envVars.get("username");
-        this.userAvatar = envVars.get("userAvatar");
+    public Message(HashMap<String, String> msgData) {
+        this.deliveryService = new Delivery(msgData.get("slackToken"));
 
-        initComponents();
-        setContent();
+        this.channel = msgData.get("chatId");
+        this.title = msgData.get("msgTitle");
+        this.jobUrl = msgData.get("jobUrl");
+        this.username = msgData.get("username");
+        this.userAvatar = msgData.get("userAvatar");
+        this.appName = msgData.get("appName");
+        this.appAvatar = msgData.get("appAvatar");
 
-    }
-    private String setTitle(String title, String deployEnv) {
-        if (!deployEnv.isEmpty()) {
-            return title + " -> " + deployEnv;
-        }
-        return title;
+        this.info = setInfo(msgData);
+        this.color = setColor(msgData.get("jobStatus"));
+
+        createContent();
     }
 
-    private String setInfo(HashMap<String, String> envVars) {
-        if (!envVars.get("customMsg").isEmpty()) {
-            return envVars.get("customMsg");
+    private String setInfo(HashMap<String, String> msgData) {
+        if (!msgData.get("customMsg").isEmpty()) {
+            return msgData.get("customMsg");
         } else {
-            return String.format("*Branch*: <%s|%s>\n *Commit*: <%s|%s>\n*Message*: %s\n",
-                    envVars.get("branchUrl"),
-                    envVars.get("branch"),
-                    envVars.get("commitUrl"),
-                    envVars.get("commitId"),
-                    envVars.get("commitMsg"));
+            return String.format("*Branch*: <%s|%s>\n*Commit*: <%s|%s>\n*Message*: %s\n",
+                    msgData.get("branchUrl"),
+                    msgData.get("branch"),
+                    msgData.get("commitUrl"),
+                    msgData.get("commitId"),
+                    msgData.get("commitMsg"));
         }
     }
 
@@ -74,52 +71,51 @@ public class Message {
         }
     }
 
-    private void initComponents() {
+    private void createContent() {
+        JSONObject msgContent = new JSONObject();
+
+        JSONObject[] components = initComponents();
+        JSONObject[] attachments = wrapIntoAttachment(components);
+
+        msgContent.put("attachments", attachments);
+        msgContent.put("channel", channel);
+        msgContent.put("username", appName);
+        msgContent.put("icon_url", appAvatar);
+
+        content = msgContent;
+    }
+
+    private JSONObject[] initComponents() {
         JSONObject header = Header.build(title);
         JSONObject divider = Common.createDivider();
         JSONObject body = Body.build(info, username, userAvatar);
         JSONObject footer = Footer.build(jobUrl);
         JSONObject context = Common.createContext();
-        components = new JSONObject[]{header, divider, body, footer, context};
+
+        return new JSONObject[]{header, divider, body, footer, context};
     }
 
-    private void setContent() {
-        JSONObject rawContent = new JSONObject();
+//    private JSONArray wrapInBlocks() {
+//        JSONArray blocksSection = new JSONArray();
+//
+//        for (JSONObject component: components) {
+//            blocksSection.put(component);
+//        }
+//
+//        return blocksSection;
+//    }
 
-        JSONArray blocks = wrapInBlocks();
-        JSONArray attachments = wrapInAttachment(blocks);
+    private JSONObject[] wrapIntoAttachment(JSONObject[] components) {
+        JSONObject attachments = new JSONObject();
 
-        rawContent.put("attachments", attachments);
-        rawContent.put("channel", channel);
-        rawContent.put("icon_url", "https://avatars.githubusercontent.com/u/96535499");
+        attachments.put("color", color);
+        attachments.put("blocks", components);
 
-        this.content = rawContent;
-    }
-
-    private JSONArray wrapInBlocks() {
-        JSONArray blocksSection = new JSONArray();
-
-        for (JSONObject component: components) {
-            blocksSection.put(component);
-        }
-
-        return blocksSection;
-    }
-
-    private JSONArray wrapInAttachment(JSONArray blocks) {
-        JSONObject inner = new JSONObject();
-        JSONArray attachments = new JSONArray();
-
-        inner.put("color", color);
-        inner.put("blocks", blocks);
-
-        attachments.put(inner);
-
-        return attachments;
+        return new JSONObject[]{attachments};
     }
 
     public void send() throws IOException, InterruptedException {
-        deliveryService.setRequest(content.toString());
+        deliveryService.setRequest(content.toString(), CHAT_ENDPOINT);
         deliveryService.send();
     }
 
