@@ -49,7 +49,7 @@ public final class Common {
     public static JSONObject createContext(String signature) {
         JSONObject context = new JSONObject();
 
-        JSONObject text = createText(TextTypes.MD, signature, true);
+        JSONObject text = createText(TextTypes.MD, signature, false);
 
         JSONObject[] elements = new JSONObject[]{text};
 
