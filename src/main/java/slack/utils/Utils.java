@@ -1,8 +1,6 @@
 package slack.utils;
 
 import java.util.HashMap;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import slack.utils.Constants.EnvVars;
 
 public class Utils {

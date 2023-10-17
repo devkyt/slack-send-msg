@@ -1,9 +1,7 @@
 package slack.message.components;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
-import static slack.utils.Constants.TextTypes.*;
-import static slack.utils.Constants.AuthorInfo.AUTHOR;
+import static slack.utils.Constants.TextTypes;
 
 public final class Common {
 
@@ -48,12 +46,12 @@ public final class Common {
         return divider;
     }
 
-    public static JSONObject createContext() {
+    public static JSONObject createContext(String signature) {
         JSONObject context = new JSONObject();
-        JSONArray elements = new JSONArray();
 
-        JSONObject text = createText(PLAIN, "Developed by " + AUTHOR, true);
-        elements.put(text);
+        JSONObject text = createText(TextTypes.PLAIN, signature, true);
+
+        JSONObject[] elements = new JSONObject[]{text};
 
         context.put("type", "context");
         context.put("elements", elements);

@@ -1,17 +1,16 @@
 package slack.message;
 
 import org.json.JSONObject;
+import java.io.IOException;
+import java.util.HashMap;
 import slack.delivery.Delivery;
 import slack.message.components.Body;
 import slack.message.components.Common;
 import slack.message.components.Footer;
 import slack.message.components.Header;
-
-import java.io.IOException;
-import java.util.HashMap;
-
 import static slack.utils.Constants.MsgColors.*;
 import static slack.utils.Constants.SlackApi.CHAT_ENDPOINT;
+import static slack.utils.Constants.AuthorInfo.SIGNATURE;
 
 
 public class Message {
@@ -90,20 +89,10 @@ public class Message {
         JSONObject divider = Common.createDivider();
         JSONObject body = Body.build(info, username, userAvatar);
         JSONObject footer = Footer.build(jobUrl);
-        JSONObject context = Common.createContext();
+        JSONObject context = Common.createContext(SIGNATURE);
 
         return new JSONObject[]{header, divider, body, footer, context};
     }
-
-//    private JSONArray wrapInBlocks() {
-//        JSONArray blocksSection = new JSONArray();
-//
-//        for (JSONObject component: components) {
-//            blocksSection.put(component);
-//        }
-//
-//        return blocksSection;
-//    }
 
     private JSONObject[] wrapIntoAttachment(JSONObject[] components) {
         JSONObject attachments = new JSONObject();
