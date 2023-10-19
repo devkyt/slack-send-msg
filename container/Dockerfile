@@ -1,8 +1,6 @@
-FROM openjdk:21
+FROM azul/zulu-openjdk-alpine:21-jre
 
-COPY entrypoint.sh /entrypoint.sh
-COPY main.sh /main.sh
-COPY slack-msg-delivery-1.0-SNAPSHOT-jar-with-dependencies.jar /app.jar
+COPY entrypoint.sh main.sh app.jar ./
 
 RUN chmod +x entrypoint.sh
 
