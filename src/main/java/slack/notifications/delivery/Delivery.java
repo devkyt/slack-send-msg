@@ -7,6 +7,8 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+import static slack.notifications.utils.Constants.ResponseErrors.BAD_RESPONSE;
+
 public class Delivery {
     private final String token;
     private final HttpClient client;
@@ -32,11 +34,14 @@ public class Delivery {
     }
 
     private void handleErrors(HttpResponse<String> response) {
-        if (response.statusCode() != 200) {
-            throw new IllegalStateException("Got code " + response.statusCode() + " from Slack API");
+        JSONObject parsedResponse = new JSONObject(response.body());
+
+        if (response.statusCode() != 200 || !parsedResponse.getBoolean("ok")) {
+            throw new IllegalStateException(String.format(BAD_RESPONSE,
+                    response.statusCode(),
+                    parsedResponse.get("error")));
         }
 
-        JSONObject parsedResponse = new JSONObject(response.body());
     }
 
 }

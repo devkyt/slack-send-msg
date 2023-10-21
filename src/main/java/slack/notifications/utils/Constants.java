@@ -26,6 +26,10 @@ public class Constants {
         public final static String SIGNATURE = String.format("Developed by %s", AUTHOR_NAME);
     }
 
+    public static class ResponseErrors {
+        public final static String BAD_RESPONSE = "Got code %s from Slack API. Error: %s";
+    }
+
     public enum EnvVars {
         CHAT_ID,
         SLACK_TOKEN,

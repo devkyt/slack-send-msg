@@ -22,15 +22,15 @@ inputs:
     required: false
     type: string
   environment:
-    description: "Environment for which job is running"
+    description: "Environment in which job is running"
     required: false
     type: string
   app_name:
-    description: "Username for app in the chat"
+    description: "Username for the app in the chat"
     required: false
     type: string
   app_image:
-    description: "Avatar for app in the chat"
+    description: "Avatar for the app in the chat"
     required: false
     type: string
 runs:
