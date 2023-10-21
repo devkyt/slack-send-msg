@@ -13,8 +13,7 @@ set_env "$1" "$2" "$3" "$4" "$5" "$6" "$7" "$8"
 #echo $COMMIT_SHA
 #echo $COMMIT_URL
 #
-#cat "$GITHUB_EVENT_PATH"
-
+cat "$GITHUB_EVENT_PATH"
 T=$(cat "$GITHUB_EVENT_PATH" | jq -r '.commits[-1].message')
 echp "$T"
 
