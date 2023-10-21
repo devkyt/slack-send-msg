@@ -15,7 +15,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>slack.MainClass</mainClass>
+                            <mainClass>slack.notifications.MainClass</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

@@ -1,7 +1,7 @@
-package slack.message.components;
+package slack.notifications.message.components;
 
+import slack.notifications.utils.Constants;
 import org.json.JSONObject;
-import static slack.utils.Constants.TextTypes;
 
 public final class Common {
 
@@ -49,7 +49,7 @@ public final class Common {
     public static JSONObject createContext(String signature) {
         JSONObject context = new JSONObject();
 
-        JSONObject text = createText(TextTypes.MD, signature, false);
+        JSONObject text = createText(Constants.TextTypes.MD, signature, false);
 
         JSONObject[] elements = new JSONObject[]{text};
 

@@ -1,4 +1,4 @@
-package slack.delivery;
+package slack.notifications.delivery;
 
 import java.io.IOException;
 import java.net.URI;

@@ -1,7 +1,7 @@
-package slack.message.components;
+package slack.notifications.message.components;
 
+import slack.notifications.utils.Constants;
 import org.json.JSONObject;
-import static slack.utils.Constants.TextTypes;
 
 public final class Body {
 
@@ -11,7 +11,7 @@ public final class Body {
 
 
         JSONObject image = Common.createImage(userAvatar, username);
-        JSONObject text = Common.createText(TextTypes.MD, payload, false);
+        JSONObject text = Common.createText(Constants.TextTypes.MD, payload, false);
         JSONObject body = new JSONObject();
 
         body.put("type", "section");

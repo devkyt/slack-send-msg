@@ -1,16 +1,17 @@
-package slack.message.components;
+package slack.notifications.message.components;
 
+import slack.notifications.utils.Constants;
 import org.json.JSONObject;
-import static slack.message.components.Common.createText;
-import static slack.message.components.Common.createButton;
-import static slack.utils.Constants.TextTypes;
+
+import static slack.notifications.message.components.Common.createText;
+import static slack.notifications.message.components.Common.createButton;
 
 public final class Footer {
 
     public static JSONObject build(String url, String buttonText) {
         JSONObject footer = new JSONObject();
 
-        JSONObject text = createText(TextTypes.PLAIN, buttonText, false);
+        JSONObject text = createText(Constants.TextTypes.PLAIN, buttonText, false);
         JSONObject button = createButton(text, url);
 
         JSONObject[] elements = new JSONObject[]{button};

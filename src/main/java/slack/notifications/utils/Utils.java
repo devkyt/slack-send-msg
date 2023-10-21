@@ -1,7 +1,7 @@
-package slack.utils;
+package slack.notifications.utils;
 
 import java.util.HashMap;
-import slack.utils.Constants.EnvVars;
+import slack.notifications.utils.Constants.EnvVars;
 
 public class Utils {
     public static HashMap<String, String> loadFromEnv(EnvVars[] envVars) {

@@ -1,18 +1,18 @@
-package slack.message;
+package slack.notifications.message;
 
 import org.json.JSONObject;
 import java.io.IOException;
 import java.util.HashMap;
-import slack.delivery.Delivery;
-import slack.message.components.Body;
-import slack.message.components.Common;
-import slack.message.components.Footer;
-import slack.message.components.Header;
+import slack.notifications.delivery.Delivery;
+import slack.notifications.message.components.Body;
+import slack.notifications.message.components.Common;
+import slack.notifications.message.components.Footer;
+import slack.notifications.message.components.Header;
 
-import static slack.utils.Constants.MsgColors.*;
-import static slack.utils.Constants.SlackApi.CHAT_ENDPOINT;
-import static slack.utils.Constants.AuthorInfo.SIGNATURE;
-import static slack.utils.Constants.ComponentText.FOOTER_BUTTON;
+import static slack.notifications.utils.Constants.MsgColors.*;
+import static slack.notifications.utils.Constants.SlackApi.CHAT_ENDPOINT;
+import static slack.notifications.utils.Constants.AuthorInfo.SIGNATURE;
+import static slack.notifications.utils.Constants.ComponentText.FOOTER_BUTTON;
 
 
 public class Message {

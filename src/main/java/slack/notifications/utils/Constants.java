@@ -1,4 +1,4 @@
-package slack.utils;
+package slack.notifications.utils;
 
 public class Constants {
     public static class SlackApi {
