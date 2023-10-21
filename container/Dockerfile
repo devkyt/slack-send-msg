@@ -1,5 +1,8 @@
 FROM azul/zulu-openjdk-alpine:21-jre
 
+RUN apk update \
+    && apk add --no-cahe jq
+
 COPY entrypoint.sh main.sh app.jar ./
 
 RUN chmod +x entrypoint.sh

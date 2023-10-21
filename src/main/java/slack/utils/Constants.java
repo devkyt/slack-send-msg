@@ -19,7 +19,7 @@ public class Constants {
     public static class AuthorInfo {
         public final static String AUTHOR_NAME = "s8ckerpunch";
         public final static String SOURCE_REPO_URL = "https://github.com/s8ckerpunch/slack-msg-delivery";
-        public final static String SIGNATURE = String.format("Developed by %s>", AUTHOR_NAME);
+        public final static String SIGNATURE = String.format("Developed by %s", AUTHOR_NAME);
     }
 
     public enum EnvVars {
