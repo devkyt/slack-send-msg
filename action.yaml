@@ -1,12 +1,12 @@
-name: 'Slack Message Delivery'
-description: 'Send message to Slack Chat'
+name: 'Slack Send Message'
+description: 'Send message to the Slack Chat'
 inputs:
   chat_id:
     description: 'Id of a chat where to send message'
     required: true
     type: string
   slack_token:
-    description: "Oauth token with a permission to write to chat"
+    description: "Oauth token with a permission to write to the chat"
     required: true
     type: string
   message_title:
@@ -14,23 +14,23 @@ inputs:
     required: false
     type: string
   custom_message:
-    description: "Custom message"
+    description: "Custom message that will be send to the chat instead of default one"
     required: false
     type: string
   job_status:
-    description: "Status of a job"
+    description: "Status of a current job execution"
     required: false
     type: string
   environment:
-    description: "Env"
+    description: "Environment for which job is running"
     required: false
     type: string
   app_name:
-    description: "App Name"
+    description: "Username for app in the chat"
     required: false
     type: string
   app_image:
-    description: "App Image"
+    description: "Avatar for app in the chat"
     required: false
     type: string
 runs:

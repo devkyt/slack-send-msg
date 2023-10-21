@@ -1,5 +1,6 @@
 package slack.notifications.delivery;
 
+import org.json.JSONObject;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -27,7 +28,17 @@ public class Delivery {
 
     public void send() throws IOException, InterruptedException {
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println(response.statusCode());
-        System.out.println(response.body());
+        handleErrors(response);
     }
+
+    private void handleErrors(HttpResponse<String> response) {
+        if (response.statusCode() != 200) {
+            throw new IllegalStateException("Got code " + response.statusCode() + " from Slack API");
+        }
+
+        JSONObject parsedResponse = new JSONObject(response.body());
+        System.out.println(parsedResponse);
+        System.out.println("MESSAGE: " + parsedResponse.get("message"));
+    }
+
 }
