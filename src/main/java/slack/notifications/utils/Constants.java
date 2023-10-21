@@ -27,7 +27,7 @@ public class Constants {
     }
 
     public static class ResponseErrors {
-        public final static String BAD_RESPONSE = "Got code %s from Slack API. Error: %s";
+        public final static String BAD_RESPONSE = "Got error \"%s\" from Slack API. Status code: %s";
     }
 
     public enum EnvVars {

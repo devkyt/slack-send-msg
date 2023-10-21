@@ -36,10 +36,12 @@ public class Delivery {
     private void handleErrors(HttpResponse<String> response) {
         JSONObject parsedResponse = new JSONObject(response.body());
 
+        System.out.println(response.body());
+
         if (response.statusCode() != 200 || !parsedResponse.getBoolean("ok")) {
             throw new IllegalStateException(String.format(BAD_RESPONSE,
-                    response.statusCode(),
-                    parsedResponse.get("error")));
+                    parsedResponse.get("error"),
+                    response.statusCode()));
         }
 
     }

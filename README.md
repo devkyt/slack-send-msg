@@ -8,6 +8,13 @@ GitHub Action to send a message with your pretty face and commit info to a Slack
 
 
 ## Usage
+```yaml
+  - name: Send Message to Slack
+    uses: s8ckerpunch/slack-send-msg@v0.1
+    with:
+      slack_token: ${{ secrets.SLACK_TOKEN }}
+      chat_id: ${{ secrets.SLACK_CHAT_ID }}
+```
 
 
 
