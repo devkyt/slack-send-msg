@@ -16,6 +16,10 @@ public class Constants {
         public final static String MD = "mrkdwn";
     }
 
+    public static class ComponentText {
+        public final static String FOOTER_BUTTON = "Open Workflow";
+    }
+
     public static class AuthorInfo {
         public final static String AUTHOR_NAME = "s8ckerpunch";
         public final static String SOURCE_REPO_URL = "https://github.com/s8ckerpunch/slack-msg-delivery";
@@ -30,6 +34,7 @@ public class Constants {
         BRANCH_URL,
         COMMIT_ID,
         COMMIT_URL,
+        COMMIT_MSG,
         CUSTOM_MSG,
         JOB_STATUS,
         JOB_URL,

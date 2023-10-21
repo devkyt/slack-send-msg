@@ -29,6 +29,7 @@ set_env() {
     export BRANCH_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/tree/${BRANCH}"
     export COMMIT_ID=$(get_short_commit_id)
     export COMMIT_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/commits/${GITHUB_SHA}"
+    export COMMIT_MSG=$(get_commit_msg)
     export USERNAME="${GITHUB_ACTOR}"
     export USER_AVATAR="https://avatars.githubusercontent.com/u/${GITHUB_ACTOR_ID}"
     export APP_NAME=$(get_app_name "$7")
@@ -70,6 +71,11 @@ get_job_status() {
 
 get_short_commit_id() {
    echo "${GITHUB_SHA}" | head -c7
+}
+
+
+get_commit_msg() {
+  cat "$GITHUB_EVENT_PATH" | jq -r '.commits[-1].message'
 }
 
 

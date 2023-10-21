@@ -8,9 +8,11 @@ import slack.message.components.Body;
 import slack.message.components.Common;
 import slack.message.components.Footer;
 import slack.message.components.Header;
+
 import static slack.utils.Constants.MsgColors.*;
 import static slack.utils.Constants.SlackApi.CHAT_ENDPOINT;
 import static slack.utils.Constants.AuthorInfo.SIGNATURE;
+import static slack.utils.Constants.ComponentText.FOOTER_BUTTON;
 
 
 public class Message {
@@ -88,7 +90,7 @@ public class Message {
         JSONObject header = Header.build(title);
         JSONObject divider = Common.createDivider();
         JSONObject body = Body.build(info, username, userAvatar);
-        JSONObject footer = Footer.build(jobUrl);
+        JSONObject footer = Footer.build(jobUrl, FOOTER_BUTTON);
         JSONObject context = Common.createContext(SIGNATURE);
 
         return new JSONObject[]{header, divider, body, footer, context};

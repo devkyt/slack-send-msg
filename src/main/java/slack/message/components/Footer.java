@@ -7,10 +7,10 @@ import static slack.utils.Constants.TextTypes;
 
 public final class Footer {
 
-    public static JSONObject build(String url) {
+    public static JSONObject build(String url, String buttonText) {
         JSONObject footer = new JSONObject();
 
-        JSONObject text = createText(TextTypes.PLAIN, "Open Workflow", false);
+        JSONObject text = createText(TextTypes.PLAIN, buttonText, false);
         JSONObject button = createButton(text, url);
 
         JSONObject[] elements = new JSONObject[]{button};

@@ -3,10 +3,9 @@ package slack;
 import java.io.IOException;
 import java.util.HashMap;
 
-import org.json.JSONObject;
 import slack.message.Message;
-import static slack.utils.Utils.loadFromEnv;
 import slack.utils.Constants.EnvVars;
+import static slack.utils.Utils.loadFromEnv;
 
 public class MainClass {
 
