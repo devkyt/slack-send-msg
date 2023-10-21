@@ -37,8 +37,6 @@ public class Delivery {
         }
 
         JSONObject parsedResponse = new JSONObject(response.body());
-        System.out.println(parsedResponse);
-        System.out.println("MESSAGE: " + parsedResponse.get("message"));
     }
 
 }
