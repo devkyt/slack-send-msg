@@ -1,7 +1,7 @@
 #!/bin/sh
 
 DEFAULT_TITLE="$GITHUB_WORKFLOW"
-DEFAULT_APP_NAME="Jobs"
+DEFAULT_APP_NAME="Workflows"
 DEFAULT_APP_AVATAR="https://raw.githubusercontent.com/s8ckerpunch/slack-msg-delivery/main/app_avatar.png"
 
 check_inputs() {

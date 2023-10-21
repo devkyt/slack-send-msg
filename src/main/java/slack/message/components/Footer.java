@@ -10,7 +10,7 @@ public final class Footer {
     public static JSONObject build(String url) {
         JSONObject footer = new JSONObject();
 
-        JSONObject text = createText(TextTypes.PLAIN, "Open Job", false);
+        JSONObject text = createText(TextTypes.PLAIN, "Open Workflow", false);
         JSONObject button = createButton(text, url);
 
         JSONObject[] elements = new JSONObject[]{button};

@@ -15,6 +15,6 @@ set_env "$1" "$2" "$3" "$4" "$5" "$6" "$7" "$8"
 #
 cat "$GITHUB_EVENT_PATH"
 T=$(cat "$GITHUB_EVENT_PATH" | jq -r '.commits[-1].message')
-echp "$T"
+echo "$T"
 
 java -jar /app.jar
