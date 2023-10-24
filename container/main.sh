@@ -2,7 +2,7 @@
 
 DEFAULT_TITLE="$GITHUB_WORKFLOW"
 DEFAULT_APP_NAME="Workflows"
-DEFAULT_APP_AVATAR="https://raw.githubusercontent.com/s8ckerpunch/slack-msg-delivery/main/app_avatar.png"
+DEFAULT_APP_AVATAR="https://raw.githubusercontent.com/s8ckerpunch/slack-msg-delivery/main/images/app-avatar.png"
 
 check_inputs() {
     if  [ -z "$1" ];
