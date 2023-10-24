@@ -2,8 +2,11 @@ package slack.notifications.message;
 
 import org.json.JSONObject;
 import java.io.IOException;
+import java.net.http.HttpResponse;
 import java.util.HashMap;
 import slack.notifications.delivery.Delivery;
+import slack.notifications.exceptions.BadRequestException;
+import slack.notifications.exceptions.BadResponseException;
 import slack.notifications.message.components.Body;
 import slack.notifications.message.components.Common;
 import slack.notifications.message.components.Footer;
@@ -105,9 +108,10 @@ public class Message {
         return new JSONObject[]{attachments};
     }
 
-    public void send() throws IOException, InterruptedException {
+    public void send() throws BadRequestException, BadResponseException {
         deliveryService.setRequest(content.toString(), CHAT_ENDPOINT);
         deliveryService.send();
+        deliveryService.handleResponse();
     }
 
 }

@@ -1,6 +1,9 @@
 package slack.notifications.delivery;
 
 import org.json.JSONObject;
+import slack.notifications.exceptions.BadRequestException;
+import slack.notifications.exceptions.BadResponseException;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -12,6 +15,7 @@ import static slack.notifications.utils.Constants.ResponseErrors.BAD_RESPONSE;
 public class Delivery {
     private final String token;
     private final HttpClient client;
+    private HttpResponse<String> response;
     private HttpRequest request;
 
     public Delivery(String token) {
@@ -28,18 +32,19 @@ public class Delivery {
                 .build();
     }
 
-    public void send() throws IOException, InterruptedException {
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        handleErrors(response);
+    public void send() throws BadRequestException {
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (IOException | InterruptedException ex) {
+            throw new BadRequestException(ex.getMessage(), ex);
+        }
     }
 
-    private void handleErrors(HttpResponse<String> response) {
+    public void handleResponse() throws BadResponseException {
         JSONObject parsedResponse = new JSONObject(response.body());
 
-        System.out.println(response.body());
-
         if (response.statusCode() != 200 || !parsedResponse.getBoolean("ok")) {
-            throw new IllegalStateException(String.format(BAD_RESPONSE,
+            throw new BadResponseException(String.format(BAD_RESPONSE,
                     parsedResponse.get("error"),
                     response.statusCode()));
         }

@@ -14,7 +14,7 @@ inputs:
     required: false
     type: string
   custom_message:
-    description: "Custom message that will be send to the chat instead of default one"
+    description: "Custom message that will be send to the chat instead of the default one"
     required: false
     type: string
   job_status:

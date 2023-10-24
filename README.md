@@ -2,7 +2,7 @@
 
 GitHub Action to send a message with your pretty face and commit info to a Slack channel. 
 
-**Note**: this action uses [Slack App](https://api.slack.com/start/apps) and [Web API](https://api.slack.com/web) instead of the webhooks.
+This action uses [Slack App](https://api.slack.com/start/apps) and [Web API](https://api.slack.com/web) instead of the webhooks.
 
 ## Preview
 
@@ -16,19 +16,24 @@ GitHub Action to send a message with your pretty face and commit info to a Slack
       chat_id: ${{ secrets.SLACK_CHAT_ID }}
 ```
 
-
-
-
 ## Inputs
 
-| Input          | Required | Description                                             |
-|----------------|----------|---------------------------------------------------------|
-| chat_id        | true     | An id of a chat where to send message                   |
-| slack_token    | true     | Oauth token for an app with permission chat:write       |
-| message_title  | false    | Title for the message. Workflow name is used by default |
-| custom_message | false    | Custom message provided by user to replace default one  |
-| job_status     | false    | Status of a current job. Message color depends on it    |
-| environment    | false    | Environment in which job is running                     |
-| app_name       | false    | App username in the chat                                |
-| app_image      | false    | App avatar in the chat                                  |
+| Input          |  Required  |     Default     | Description                                                                                                       |
+|----------------|:----------:|:---------------:|-------------------------------------------------------------------------------------------------------------------|
+| chat_id        |    true    |        -        | An id of a chat where to send message                                                                             |
+| slack_token    |    true    |        -        | Oauth token for an app with chat:write scope                                                                      |
+| message_title  |   false    |  Workflow name  | Title for the message.                                                                                            |
+| custom_message |   false    |        -        | Custom message provided by user to replace default one                                                            |
+| job_status     |   false    |     Success     | Status of a current job. Message color depends on it: green for success, red for failure and yellow for cancelled |
+| environment    |   false    |        -        | Environment in which job is running                                                                               |
+| app_name       |   false    |    Workflows    | App username in the chat                                                                                          |
+| app_image      |   false    |        -        | App avatar in the chat                                                                                            |
 
+
+## Some notes to know
+
+- You can create your own Slack app and receive token for it by following this [guide](https://api.slack.com/start/quickstart)
+- To customize app name and image your Oauth token must have chat:write.customize scope
+  <br>
+- If you run your workflow manually (via workflow_dispatch event) you should set custom message for action.
+In other case main branch will be used as a source for message info. 

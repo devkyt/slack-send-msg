@@ -1,15 +1,17 @@
 package slack.notifications.utils;
 
 import java.util.HashMap;
+
 import slack.notifications.utils.Constants.EnvVars;
 
 public class Utils {
-    public static HashMap<String, String> loadFromEnv(EnvVars[] envVars) {
+    public static HashMap<String, String> loadFromEnv(EnvVars[] envVars)  {
         HashMap<String, String> msgData = new HashMap<>();
 
         for (EnvVars var: envVars) {
-            String name = var.name();
-            msgData.put(toCamelCase(name), System.getenv(name));
+            String key = var.name();
+            String value = System.getenv(key);
+            msgData.put(toCamelCase(key), value);
         }
 
         return msgData;
