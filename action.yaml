@@ -47,4 +47,4 @@ runs:
     - ${{ inputs.app_image }}
 branding:
   icon: 'send'
-  color: 'white'
+  color: 'green'
