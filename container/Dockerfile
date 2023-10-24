@@ -1,4 +1,4 @@
-FROM azul/zulu-openjdk-alpine:21-jre
+FROM --platform=linux/amd64 azul/zulu-openjdk-alpine:21-jre
 
 LABEL app.name="slack-send-msg" \
       app.version="0.1"
