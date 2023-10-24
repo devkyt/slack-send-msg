@@ -45,3 +45,6 @@ runs:
     - ${{ inputs.environment }}
     - ${{ inputs.app_name }}
     - ${{ inputs.app_image }}
+branding:
+  icon: 'bell'
+  color: 'white'
