@@ -33,7 +33,6 @@ This action uses [Slack App](https://api.slack.com/start/apps) and [Web API](htt
 ## Some notes to know
 
 - You can create your own Slack app and receive token for it by following this [guide](https://api.slack.com/start/quickstart)
-- To customize app name and image your Oauth token must have chat:write.customize scope
-  <br>
+- If you want to customize app name and avatar, your Oauth token must have chat:write.customize scope
 - If you run your workflow manually (via workflow_dispatch event) you should set custom message for action.
 In other case main branch will be used as a source for message info. 
