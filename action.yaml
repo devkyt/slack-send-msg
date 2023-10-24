@@ -35,7 +35,7 @@ inputs:
     type: string
 runs:
   using: 'docker'
-  image: './container/Dockerfile'
+  image: 'docker.io/s8ckerpunch/slack-send-msg:v0.1 '
   args:
     - ${{ inputs.chat_id }}
     - ${{ inputs.slack_token }}
