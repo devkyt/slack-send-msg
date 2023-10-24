@@ -42,5 +42,6 @@ More examples [here](https://github.com/s8ckerpunch/slack-send-msg/tree/main/ima
 
 - You can create your own Slack app and receive a token for it by following this [guide](https://api.slack.com/start/quickstart)
 - Add chat:write.customize scope to your token if you want to customize the app name and avatar
+- The image on the right side of the message is an avatar of the person who triggered workflow
 - Set a custom message for action when you run workflow manually (via workflow_dispatch event).
 In another case, main branch will be used as a source for message info.
