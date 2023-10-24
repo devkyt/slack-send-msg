@@ -46,5 +46,5 @@ runs:
     - ${{ inputs.app_name }}
     - ${{ inputs.app_image }}
 branding:
-  icon: 'bell'
+  icon: 'git-pull-request'
   color: 'white'
