@@ -85,7 +85,7 @@ public class Message {
         msgContent.put("channel", channel);
         msgContent.put("username", appName);
         msgContent.put("icon_url", appAvatar);
-        msgContent.put("text", "preview Test");
+        msgContent.put("text", title);
 
         content = msgContent;
     }
