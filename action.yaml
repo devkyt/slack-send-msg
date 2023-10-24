@@ -1,4 +1,4 @@
-name: 'Slack Send Message'
+name: 'Slack Send Msg'
 description: 'Send message to the Slack Chat'
 inputs:
   chat_id:
