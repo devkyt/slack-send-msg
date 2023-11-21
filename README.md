@@ -16,7 +16,7 @@ More examples [here](https://github.com/s8ckerpunch/slack-send-msg/tree/main/ima
 ## Usage
 ```yaml
   - name: Send Message to Slack
-    uses: s8ckerpunch/slack-send-msg@v0.1
+    uses: devkyt/slack-send-msg@v0.1
     with:
       slack_token: ${{ secrets.SLACK_TOKEN }}
       chat_id: ${{ secrets.SLACK_CHAT_ID }}
